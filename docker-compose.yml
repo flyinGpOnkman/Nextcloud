@@ -7,13 +7,11 @@ services:
     image: mariadb:10.6
     restart: always
     command:
-      - --transaction-isolation=READ-COMMITTED
-      - --log-bin=binlog
-      - --binlog-format=ROW
-      - --max_allowed_packet=256M
-      - --wait_timeout=28800
-      - --interactive_timeout=28800
-      - --innodb_buffer_pool_size=512M
+        - --transaction-isolation=READ-COMMITTED
+        - --max_allowed_packet=256M
+        - --wait_timeout=28800
+        - --interactive_timeout=28800
+        - --innodb_buffer_pool_size=512M
     volumes:
       - db:/var/lib/mysql
       - ./mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf
