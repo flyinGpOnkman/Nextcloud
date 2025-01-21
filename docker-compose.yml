@@ -17,11 +17,15 @@ services:
     volumes:
       - db:/var/lib/mysql
       - ./mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf
-    environment:
+environment:
+      # Mot de passe pour l'utilisateur root de la base de données
       - MYSQL_ROOT_PASSWORD=**
+      # Mot de passe pour l'utilisateur de la base de données
       - MYSQL_PASSWORD=**
-      - MYSQL_DATABASE=n**
+      - MYSQL_DATABASE=nextcloud
+      # Nom de l'utilisateur de la base de données
       - MYSQL_USER=**
+
   app:
     image: nextcloud:fpm
     restart: always
@@ -30,10 +34,14 @@ services:
       - redis
     volumes:
       - nextcloud:/var/www/html
-      - /mnt/omv_share:/mnt/omv_share
+      # Si vous souhaitez partager un répertoire local, remplacez /path/to/local par le bon chemin
+      # Exemple: Monter un disque externe
+      - /path/to/local:/mnt/share
     environment:
+      # Mot de passe de la base de données pour l'application Nextcloud (celui de l'utilisateur)
       - MYSQL_PASSWORD=**
-      - MYSQL_DATABASE=**
+      - MYSQL_DATABASE=nextcloud
+      # Nom de l'utilisateur de la base de données pour Nextcloud
       - MYSQL_USER=**
       - MYSQL_HOST=db
       - REDIS_HOST=redis
